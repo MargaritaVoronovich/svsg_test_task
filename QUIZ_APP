@@ -230,7 +230,7 @@ Classes:
     private final UserQuizHistoryRepository userQuizHistoryRepository
 
     public UserQuizHistoryService(UserQuizHistoryRepository userQuizHistoryRepository)
-    public boolean add(Long userId, Long questionId, List<Integer>)
+    public boolean add(Long userId, Long questionId, List<Long>)
     public List<UserQuizHistory> allByUser(Long userId)
 ---------------------------------------------------------------------------------------------------
   UserQuizHistoryController
@@ -238,7 +238,7 @@ Classes:
     private final UserQuizHistoryService userQuizHistoryService
 
     public UserQuizHistoryController(UserQuizHistoryService userQuizHistoryService)
-    public ResponseEntity add(Long userId, Long questionId, List<Integer>)
+    public ResponseEntity add(Long userId, Long questionId, List<Long>)
     public List<UserQuizHistory> allByUser(Long userId)
 ===================================================================================================
 
@@ -248,20 +248,20 @@ Tables:
     id         bigint nextval('quiz_user_id_seq'::regclass)
     login      varchar(50)
     password   varchar (100)
-    registered timestamp
+    created_at timestamp
 
   topic
     id          bigint nextval('topic_id_seq'::regclass)
     title       varchar(50)
     description text
-    created     timestamp
+    created_at  timestamp
 
   text_content
     id            bigint nextval('text_content_id_seq'::regclass)
     content       text
     title         varchar(50)
     content_order integer
-    created       timestamp
+    created_at    timestamp
     topic_id      bigint (foreign key)
 
   video_content
@@ -269,14 +269,14 @@ Tables:
     file_name     varchar(100)
     title         varchar(50)
     content_order integer
-    created       timestamp
+    created_at    timestamp
     topic_id      bigint (foreign key)
 
   question
     id             bigint nextval('question_id_seq'::regclass)
     text           text
     question_order integer
-    created        timestamp
+    created_at     timestamp
     topic_id       bigint (foreign key)
 
   answer
@@ -284,11 +284,11 @@ Tables:
     text         text
     answer_order integer
     is_correct   boolean
-    created      timestamp
+    created_at   timestamp
     question_id  bigint (foreign key)
 
   user_quiz_history
     id          bigint nextval('user_quiz_history_id_seq'::regclass)
     question_id bigint (foreign key)
     answer_id   bigint (foreign key)
-    answered_at timestamp
+    created_at  timestamp
