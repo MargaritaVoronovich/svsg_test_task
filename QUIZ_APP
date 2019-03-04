@@ -257,35 +257,35 @@ Tables:
     created     timestamp
 
   text_content
-    id       bigint nextval('text_content_id_seq'::regclass)
-    content  text
-    title    varchar(50)
-    order    integer
-    created  timestamp
-    topic_id bigint (foreign key)
+    id            bigint nextval('text_content_id_seq'::regclass)
+    content       text
+    title         varchar(50)
+    content_order integer
+    created       timestamp
+    topic_id      bigint (foreign key)
 
   video_content
-    id        bigint nextval('video_content_id_seq'::regclass)
-    file_name varchar(100)
-    title     varchar(50)
-    order   integer
-    created   timestamp
-    topic_id  bigint (foreign key)
+    id            bigint nextval('video_content_id_seq'::regclass)
+    file_name     varchar(100)
+    title         varchar(50)
+    content_order integer
+    created       timestamp
+    topic_id      bigint (foreign key)
 
   question
-    id        bigint nextval('question_id_seq'::regclass)
-    text      text
-    order    integer
-    created   timestamp
-    topic_id  bigint (foreign key)
+    id             bigint nextval('question_id_seq'::regclass)
+    text           text
+    question_order integer
+    created        timestamp
+    topic_id       bigint (foreign key)
 
   answer
-    id          bigint nextval('answer_id_seq'::regclass)
-    text        text
-    order       integer
-    is_correct  boolean
-    created     timestamp
-    question_id bigint (foreign key)
+    id           bigint nextval('answer_id_seq'::regclass)
+    text         text
+    answer_order integer
+    is_correct   boolean
+    created      timestamp
+    question_id  bigint (foreign key)
 
   user_quiz_history
     id          bigint nextval('user_quiz_history_id_seq'::regclass)
