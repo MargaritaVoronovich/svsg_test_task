@@ -1,0 +1,294 @@
+Classes:
+---------------------------------------------------------------------------------------------------
+  User
+
+    private Long id
+    private String login
+    private String password
+    private TimeStamp registered
+
+    @Data (constructor, getters, setters, equals, hashcode)
+---------------------------------------------------------------------------------------------------
+  UserRepository
+
+    CRUD
+---------------------------------------------------------------------------------------------------
+  UserService
+
+    private final UserRepository repository
+
+    public UserService(UserRepository repository)
+    public User create(User newUser)
+---------------------------------------------------------------------------------------------------
+  UserController
+
+    private final UserService userService
+
+    public UserController(UserService userService)
+    public ResponseEntity<User> register(User user)
+===================================================================================================
+  Topic
+
+    private Long id
+    private String title
+    private String description
+    private Timestamp created
+    private List<TextContent> textContent
+    private List<VideoContent> videoContent
+
+    @Data (constructor, getters, setters, equals, hashcode)
+---------------------------------------------------------------------------------------------------
+  TopicRepository
+
+    CRUD
+---------------------------------------------------------------------------------------------------
+  TopicService
+
+    private final TopicRepository topicRepository
+
+    public TopicService(TopicService topicService)
+    public List<Topic> getAll()
+    public List<Topic> getOne(Long id)
+    public Topic getOneWithContent(Long id)
+    public Topic create(Topic topic)
+    public Topic update(Topic topic)
+    public boolean delete(Long id)
+---------------------------------------------------------------------------------------------------
+  TopicController
+
+    private final TopicService topicService
+
+    public TopicController(TopicService topicService)
+    public List<Topic> all()
+    public List<Topic> one(Long id)
+    public ResponseEntity<Topic> oneWithContent(Long id)
+    public ResponseEntity<Topic> create(Topic topic)
+    public ResponseEntity<Topic> update(Topic topic)
+    public ResponseEntity delete(Long id)
+===================================================================================================
+  TextContent
+
+    private Long id
+    private String content
+    private String title
+    private Integer order
+    private Timestamp created
+    private Long topicId
+
+    @Data (constructor, getters, setters, equals, hashcode)
+---------------------------------------------------------------------------------------------------
+  TextContentRepository
+
+    CRUD
+---------------------------------------------------------------------------------------------------
+  TextContentService
+
+    private final TextContentRepository textContentRepository
+
+    public TextContentService(TextContentRepository textContentRepository)
+    public TextContent create(TextContent textContent)
+    public TextContent update(TextContent textContent)
+    public boolean delete(Long id)
+
+---------------------------------------------------------------------------------------------------
+  TextContentController
+
+    private final TextContentService textContentService
+
+    public TextContentController(TextContentService textContentService)
+    public ResponseEntity<TextContent> create(TextContent textContent)
+    public ResponseEntity<TextContent> update(TextContent textContent)
+    public ResponseEntity delete(Long id)
+===================================================================================================
+  VideoContent
+
+    private Long id
+    private String fileName
+    private String title
+    private Integer order
+    private Timestamp created
+    private Long topicId
+
+    @Data (constructor, getters, setters, equals, hashcode)
+---------------------------------------------------------------------------------------------------
+  VideoContentRepository
+
+    CRUD
+---------------------------------------------------------------------------------------------------
+  VideoContentService
+
+    public static final String S3_URL = "s3_storage_url"
+    private final VideoContentRepository videoContentRepository
+
+    public VideoContentService(VideoContentRepository videoContentRepository)
+    public VideoContent create(VideoContent videoContent)
+    public VideoContent update(VideoContent videoContent)
+    public boolean delete(Long id)
+---------------------------------------------------------------------------------------------------
+  VideoContentController
+
+    private final VideoContentService videoContentService
+
+    public VideoContentController(VideoContentService videoContentService)
+    public ResponseEntity<VideoContent> upload(VideoContent videoContent)
+    public ResponseEntity<VideoContent> update(VideoContent videoContent)
+    public ResponseEntity delete(Long id)
+===================================================================================================
+  Question
+
+    private Long id
+    private String text
+    private Integer order
+    private Timestamp created
+    private Long topicId
+    private List<Answer> answers
+
+    @Data (constructor, getters, setters, equals, hashcode)
+---------------------------------------------------------------------------------------------------
+  QuestionRepository
+
+    CRUD
+---------------------------------------------------------------------------------------------------
+  QuestionService
+
+    private final QuestionRepository questionRepository
+
+    public QuestionService(QuestionRepository questionRepository)
+    public List<Question> getAll()
+    public Question getOne(Long id)
+    public Question allByTopicId(Long id)
+    public List<Question> getAllWithAnswers()
+    public Question getOneWithAnswers(Long id)
+    public Question create(Question question)
+    public Question update(Question question)
+    public boolean delete(Long id)
+---------------------------------------------------------------------------------------------------
+  QuestionController
+
+    private final QuestionService questionService
+
+    public QuestionController(QuestionService questionService)
+    public List<Question> all()
+    public ResponseEntity<Question> one(Long id)
+    public ResponseEntity<Question> allByTopicId(Long id)
+    public List<Question> allWithAnswers()
+    public ResponseEntity<Question> oneWithAnswers(Long id)
+    public ResponseEntity<Question> create(Question question)
+    public ResponseEntity<Question> update(Question question)
+    public ResponseEntity delete(Long id)
+===================================================================================================
+  Answer
+
+    private Long id
+    private String text
+    private Integer order
+    private boolean isCorrect
+    private Timestamp created
+    private Long questionId
+
+    @Data (constructor, getters, setters, equals, hashcode)
+---------------------------------------------------------------------------------------------------
+  AnswerRepository
+
+    CRUD
+---------------------------------------------------------------------------------------------------
+  AnswerService
+
+    private final AnswerRepository answerRepository
+
+    public AnswerService(AnswerRepository answerRepository)
+    public List<Answer> getAllByQuestionId(Long id)
+    public Answer create(Answer answer)
+    public Answer update(Answer answer)
+    public boolean delete(Long id)
+---------------------------------------------------------------------------------------------------
+  AnswerController
+
+    private final AnswerService answerService
+
+    public AnswerController(AnswerService answerService)
+    public List<Answer> allByQuestionId(Long id)
+    public ResponseEntity<Answer> create(Answer answer)
+    public ResponseEntity<Answer> update(Answer answer)
+    public ResponseEntity delete(Long id)
+===================================================================================================
+  UserQuizHistory
+
+    private Long id
+    private Long questionId
+    private Long answerId
+    private Timestamp answered_at
+
+    @Data (constructor, getters, setters, equals, hashcode)
+---------------------------------------------------------------------------------------------------
+  UserQuizHistoryRepository
+
+    CRUD
+---------------------------------------------------------------------------------------------------
+  UserQuizHistoryService
+
+    private final UserQuizHistoryRepository userQuizHistoryRepository
+
+    public UserQuizHistoryService(UserQuizHistoryRepository userQuizHistoryRepository)
+    public boolean add(Long userId, Long questionId, List<Integer>)
+    public List<UserQuizHistory> allByUser(Long userId)
+---------------------------------------------------------------------------------------------------
+  UserQuizHistoryController
+
+    private final UserQuizHistoryService userQuizHistoryService
+
+    public UserQuizHistoryController(UserQuizHistoryService userQuizHistoryService)
+    public ResponseEntity add(Long userId, Long questionId, List<Integer>)
+    public List<UserQuizHistory> allByUser(Long userId)
+===================================================================================================
+
+
+Tables:
+  quiz_user
+    id         bigint nextval('quiz_user_id_seq'::regclass)
+    login      varchar(50)
+    password   varchar (100)
+    registered timestamp
+
+  topic
+    id          bigint nextval('topic_id_seq'::regclass)
+    title       varchar(50)
+    description text
+    created     timestamp
+
+  text_content
+    id       bigint nextval('text_content_id_seq'::regclass)
+    content  text
+    title    varchar(50)
+    order    integer
+    created  timestamp
+    topic_id bigint (foreign key)
+
+  video_content
+    id        bigint nextval('video_content_id_seq'::regclass)
+    file_name varchar(100)
+    title     varchar(50)
+    order   integer
+    created   timestamp
+    topic_id  bigint (foreign key)
+
+  question
+    id        bigint nextval('question_id_seq'::regclass)
+    text      text
+    order    integer
+    created   timestamp
+    topic_id  bigint (foreign key)
+
+  answer
+    id          bigint nextval('answer_id_seq'::regclass)
+    text        text
+    order       integer
+    is_correct  boolean
+    created     timestamp
+    question_id bigint (foreign key)
+
+  user_quiz_history
+    id          bigint nextval('user_quiz_history_id_seq'::regclass)
+    question_id bigint (foreign key)
+    answer_id   bigint (foreign key)
+    answered_at timestamp
