@@ -19,7 +19,9 @@ public class App {
 
         final Set<Integer> set = new HashSet<>(allocatedServers);
 
+        //O(n) complexity
         for (int i = 1; ; i++) {
+            //retrieve from HashSet(HashMap inside) O(1) complexity
             final boolean contains = set.contains(i);
 
             if (!contains) {
